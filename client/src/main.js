@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
+import Buefy from 'buefy'
 import App from './App.vue'
-import '@jsonforms/vue-vanilla/vanilla.css'
+import 'buefy/dist/css/buefy.css'
 import './style.css'
 
-createApp(App).mount('#app')
+createApp(App).use(Buefy).mount('#app')

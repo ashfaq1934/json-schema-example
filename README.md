@@ -1,6 +1,6 @@
 # JSON Schema example
 
-A Vue 3 access-request form rendered by [JSON Forms](https://jsonforms.io/) from local JSON. There is no API and no translator. The schema, the layout, and the initial values are three documents that the page imports and hands to JSON Forms.
+A Vue 3 access-request form rendered by [JSON Forms](https://jsonforms.io/) with [Buefy](https://buefy.org/) controls. There is no API and no translator. The schema, the layout, and the initial values are three documents that the page imports and hands to JSON Forms.
 
 ## How it works
 
@@ -13,7 +13,7 @@ data.json ────┘
 1. [`client/src/form/schema.json`](client/src/form/schema.json) is a JSON Schema draft 2020-12 document. It describes the access-request object and the validation rules.
 2. [`client/src/form/uischema.json`](client/src/form/uischema.json) is a JSON Forms UI schema. It chooses the field order, labels, and which controls are visible.
 3. [`client/src/form/data.json`](client/src/form/data.json) is the initial form value.
-4. [`client/src/App.vue`](client/src/App.vue) imports those three files and passes them to `<JsonForms>`, along with the vanilla HTML renderers. Each change updates the data on the page and lists Ajv errors.
+4. [`client/src/App.vue`](client/src/App.vue) imports those three files and passes them to `<JsonForms>`. Custom renderers in [`client/src/renderers/`](client/src/renderers/) draw each control with Buefy: `b-input` for text and the justification textarea, `b-select` for enums, and `b-field` for the label and error. A Buefy vertical layout stacks the fields. Each change updates the data on the page, and a `b-message` lists Ajv errors.
 
 JSON Forms draws the inputs from the UI schema and checks the data against the JSON Schema. The page does not fetch a schema and it does not post the result anywhere.
 
@@ -35,9 +35,10 @@ JSON Forms validates with Ajv. The copy it ships does not include the draft 2020
 
 ## Components
 
-- **Vue 3** mounts the page from [`client/src/main.js`](client/src/main.js).
-- **`@jsonforms/vue`** provides the `<JsonForms>` component.
-- **`@jsonforms/vue-vanilla`** supplies plain HTML controls (text, select, textarea) and a small stylesheet.
+- **Vue 3** mounts the page from [`client/src/main.js`](client/src/main.js) and registers Buefy.
+- **Buefy** supplies `b-input`, `b-select`, `b-field`, and `b-message`, styled with Bulma.
+- **`@jsonforms/vue`** provides the `<JsonForms>` component and the control bindings the Buefy renderers use.
+- **`@jsonforms/vue-vanilla`** stays registered as a fallback for control types this form does not customize.
 - **`@jsonforms/core`** supplies `createAjv` and the rule engine the renderers use.
 - **The three JSON documents** are the only description of the form. Changing a label, a required field, or a show rule means editing JSON, not the Vue template.
 
