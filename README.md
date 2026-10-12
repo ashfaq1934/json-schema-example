@@ -20,6 +20,7 @@ JSON Forms draws the inputs from the UI schema and checks the data against the J
 ### Validation rules
 
 - `requestType` and `fullName` are always required.
+- When `requestType` is `personal`, `employeeId` becomes required.
 - When `requestType` is `business`, `companyName` and `vatNumber` become required. The VAT number must be two letters followed by 2 to 12 letters or digits.
 - When `priority` is `urgent`, `justification` becomes required.
 
@@ -27,7 +28,7 @@ Those conditional requirements are `if` / `then` clauses in the JSON Schema.
 
 ### Visibility
 
-Company name and VAT number stay hidden until the request type is business. That is a JSON Forms `SHOW` rule on those controls, not a change to the schema. Switching back to personal hides the fields again. Values already entered stay in the data object.
+The request type controls three fields. Employee ID is shown only for a personal request. Company name and VAT number are shown only for a business request. Each of those controls has a JSON Forms `SHOW` rule. Switching type hides the fields that no longer apply. Values already entered stay in the data object.
 
 ### Ajv
 
@@ -52,7 +53,7 @@ npm install
 npm run dev
 ```
 
-Open the URL Vite prints. Change the request type to business to reveal the company fields, and set priority to urgent to require a justification.
+Open the URL Vite prints. A personal request shows Employee ID. Change the request type to business to hide that field and reveal the company fields, and set priority to urgent to require a justification.
 
 ## Run with Docker
 

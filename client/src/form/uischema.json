@@ -13,6 +13,18 @@
     },
     {
       "type": "Control",
+      "scope": "#/properties/employeeId",
+      "label": "Employee ID",
+      "rule": {
+        "effect": "SHOW",
+        "condition": {
+          "scope": "#/properties/requestType",
+          "schema": { "const": "personal" }
+        }
+      }
+    },
+    {
+      "type": "Control",
       "scope": "#/properties/companyName",
       "label": "Company name",
       "rule": {

@@ -16,6 +16,11 @@
       "title": "Full name",
       "minLength": 1
     },
+    "employeeId": {
+      "type": "string",
+      "title": "Employee ID",
+      "minLength": 1
+    },
     "companyName": {
       "type": "string",
       "title": "Company name",
@@ -49,6 +54,17 @@
       },
       "then": {
         "required": ["companyName", "vatNumber"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "requestType": { "const": "personal" }
+        },
+        "required": ["requestType"]
+      },
+      "then": {
+        "required": ["employeeId"]
       }
     },
     {
